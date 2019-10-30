@@ -1,5 +1,6 @@
 const fs = require('fs');
 const http = require('http');
+const url = require('url');
 
 // // Blocking, Syncrhonous
 // const textIn = fs.readFileSync('./starter/txt/input.txt', 'utf-8');
@@ -31,7 +32,18 @@ const http = require('http');
 // console.log('reading file');
 
 const server = http.createServer((req, res) => {
-  res.end('Hello from the Server!');
+  const pathName = req.url;
+  if (pathName === '/' || pathName === '/overview') {
+    res.end('This is the OVERVIEW');
+  } else if (pathName === '/product') {
+    res.end('This is the PRODUCCT');
+  } else {
+    res.writeHead(404, {
+      'Content-type': 'text-html',
+      'My-own-header': 'Hello world'
+    });
+    res.end('<h1>Page not found</h1>');
+  }
 });
 
 server.listen(8000, '127.0.0.1', () => {
