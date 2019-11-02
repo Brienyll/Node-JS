@@ -31,12 +31,19 @@ const url = require('url');
 // });
 // console.log('reading file');
 
+const data = fs.readFileSync(
+  `${__dirname}/starter/dev-data/data.json`,
+  'utf-8'
+);
+const dataObj = JSON.parse(data);
+
 const server = http.createServer((req, res) => {
   const pathName = req.url;
   if (pathName === '/' || pathName === '/overview') {
     res.end('This is the OVERVIEW');
   } else if (pathName === '/product') {
-    res.end('This is the PRODUCCT');
+    res.end('This is the PRODUCT!');
+  } else if (pathName === '/api') {
   } else {
     res.writeHead(404, {
       'Content-type': 'text-html',
